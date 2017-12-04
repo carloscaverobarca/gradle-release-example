@@ -1,0 +1,61 @@
+/**
+ * Copyright (C) 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * @author 	Carlos Cavero
+ *
+ * Triggered when push to master from develop. CD for gradle including prepare and perform the release, automatic changelog generation and pushing the modifications
+ */
+ 
+ node {
+	def gradleHome
+	gitlabBuilds(builds: ['Release', 'Changelog', 'Push']) {
+		stage('Preparation') { // for display purposes
+			// Get the source code from GitLab
+			git url: "git@github.com:carloscaverobarca/gradle-release-example.git"
+
+			// Get the Gradle tool.
+			// ** NOTE: This 'Gradle 4.0' Gradle tool is the name configured
+			// **       in the jenkins global configuration.           
+			gradleHome = tool 'Gradle 4.0'
+		}
+		
+		stage('Release') {
+			gitlabCommitStatus(name: 'Release') {
+				// Run the gradle release
+				sh "'${gradleHome}/bin/gradle' clean release -Prelease.useAutomaticVersion=true"
+			}
+		}
+	   
+		stage('Changelog') {
+			gitlabCommitStatus(name: 'Changelog') {
+				// Run the automatic changelog generation
+				sh "/home/carlos.cavero/changelog/bin/git-changelog-command-line -t ./changelog.mustache -sf ./changelog.json -of ./CHANGELOG.md"
+			}
+		}
+	   
+		stage('Push') {
+			gitlabCommitStatus(name: 'Push') {
+				// Commit and push (also tags) with ssh credentials
+				sshagent (credentials: ['8ebec10a-cda7-461f-9ce1-e7d28deb842e']) {
+					sh("git commit -am 'Automatic release increment and changelog generation'")
+					sh('git push origin HEAD:develop')
+					sh('git push --tags')
+				}
+			}
+		}
+
+
+	}
+}
