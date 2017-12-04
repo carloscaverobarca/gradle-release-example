@@ -14,13 +14,21 @@ Gradle
 The Jenkinsfile and JenkinsfileDeploy store the gradle activities in the CI and CD pipeline. All the modifications are done via Pull Requests, see the [Contribution Guidelines](https://github.com/carloscaverobarca/gradle-release-example/blob/master/CONTRIBUTING.md) for further information.
 
 ## Build
-
+```
+gradle clean build
+```
 ## Test
-
+```
+gradle clean build
+```
 ## Sonar
-
+```
+gradle sonarqube
+```
 ## Release
-
+```
+gradle clean release -Prelease.useAutomaticVersion=true
+```
 ## CI and CD
 
 Three jenkins files are distributed:
