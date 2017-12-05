@@ -3,7 +3,7 @@ language: java
 sudo: false # faster builds
 
 script:
-  - if [ "$TRAVIS_BRANCH" = "develop" ]; then gradle build; fi
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then gradle uploadArchives; fi
   - if [ "$TRAVIS_BRANCH" = "master" ]; then gradle clean release -Prelease.useAutomaticVersion=true; fi
 
 after_success:
