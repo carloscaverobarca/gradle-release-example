@@ -20,7 +20,7 @@ buildscript {
   jcenter()
  }
  dependencies {
-  classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+  // classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
   classpath 'net.researchgate:gradle-release:2.6.0'
  }
 }
@@ -30,12 +30,12 @@ plugins {
   id "org.sonarqube" version "2.4"
 }
 
-group 'si.ijs.JDEXi'
+group 'example'
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'com.bmuschko.nexus'
+//apply plugin: 'com.bmuschko.nexus'
 apply plugin: 'net.researchgate.release'
 
 sourceCompatibility = 1.7
@@ -75,7 +75,7 @@ artifacts {
     archives sourcesJar
 }
 
-modifyPom {
+/* modifyPom {
  project {
   name 'gradle-release-example'
   description 'Gradle release example for CI and CD including integration with sonar, versioning and changelog. This is used for the gradle webinars.'
@@ -103,13 +103,13 @@ modifyPom {
    }
   }
  }
-}
+} */
 
-extraArchive {
+/* extraArchive {
  sources = false
  tests = false
  javadoc = true
-}
+} */
 
 release {
 	git {
@@ -118,23 +118,36 @@ release {
 	}
 }
 
-nexus {
+/* nexus {
      sign = false
      repositoryUrl = 'https://nexus.atosresearch.eu/repository/maven-releases/'
      snapshotRepositoryUrl = 'https://nexus.atosresearch.eu/repository/maven-snapshots/'
-}
+} */
 
-/* uploadArchives {
+uploadArchives {
+    def nexusUser = "${nexusUsername}"
+    def nexusPassword = "${nexusPassword}"
+
     repositories {
         mavenDeployer {
-            repository(url: 'https://nexus.atosresearch.eu/repository/maven-releases/') {
-                authentication(userName: ${nexusUsername}, password: ${nexusPassword});
+            repository(url: 'https://nexus.atosresearch.eu/repository/maven-releases') {
+                authentication(userName: nexusUser, password: nexusPassword);
             }
-            snapshotRepository(url: 'https://nexus.atosresearch.eu/repository/maven-snapshots/') {
-                authentication(userName: ${nexusUsername}, password: ${nexusPassword});
+            snapshotRepository(url: 'https://nexus.atosresearch.eu/repository/maven-snapshots') {
+                authentication(userName: nexusUser, password: nexusPassword);
             }
         }
     }
-} */
+}
 
 afterReleaseBuild.dependsOn uploadArchives
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
