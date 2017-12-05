@@ -1,4 +1,4 @@
-# gradle-release-example [![Build Status](https://travis-ci.org/carloscaverobarca/gradle-release-example.svg?branch=master)](https://travis-ci.org/carloscaverobarca/gradle-release-example)[![codecov.io](http://codecov.io/github/codecov/gradle-release-example/branch/master/graphs/badge.svg)](http://codecov.io/github/codecov/gradle-release-example)
+# gradle-release-example [![Build Status](https://travis-ci.org/carloscaverobarca/gradle-release-example.svg?branch=master)](https://travis-ci.org/carloscaverobarca/gradle-release-example) [![codecov.io](http://codecov.io/github/codecov/gradle-release-example/branch/master/graphs/badge.svg)](http://codecov.io/github/codecov/gradle-release-example)
 
 # Description
 
