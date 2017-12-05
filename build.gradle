@@ -125,8 +125,8 @@ release {
 } */
 
 uploadArchives {
-    def nexusUser = "${nexusUsername}"
-    def nexusPassword = "${nexusPassword}"
+    def nexusUser = hasProperty('nexusUsername') ? nexusUsername : System.getenv('nexusUsername')
+    def nexusPassword = hasProperty('nexusPassword') ? nexusPassword : System.getenv('nexusPassword')
 
     repositories {
         mavenDeployer {
