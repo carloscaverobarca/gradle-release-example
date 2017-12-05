@@ -23,7 +23,7 @@ node {
 	gitlabBuilds(builds: ['Build', 'Test', 'QA']) {
 		stage('Preparation') { // for display purposes
       // Get some code from GitLab
-			git url: "git@github.com:carloscaverobarca/gradle-release-example.git"
+			git branch: "develop", url: "https://github.com/carloscaverobarca/gradle-release-example.git"
 
 			// Get the Gradle tool.
 			// ** NOTE: This 'Gradle 4.0' Gradle tool is the name configured
