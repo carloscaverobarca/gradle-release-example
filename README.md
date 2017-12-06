@@ -1,4 +1,4 @@
-# gradle-release-example [![Build Status](https://travis-ci.org/carloscaverobarca/gradle-release-example.svg?branch=feature-1-firstTest)](https://travis-ci.org/carloscaverobarca/gradle-release-example) [![codecov.io](https://codecov.io/gh/carloscaverobarca/gradle-release-example/branch/feature-1-firstTest/graphs/badge.svg)](http://codecov.io/gh/carloscaverobarca/gradle-release-example)
+# gradle-release-example [![Build Status](https://travis-ci.org/carloscaverobarca/gradle-release-example.svg?branch=master)](https://travis-ci.org/carloscaverobarca/gradle-release-example) [![codecov.io](https://codecov.io/gh/carloscaverobarca/gradle-release-example/branch/master/graphs/badge.svg)](http://codecov.io/gh/carloscaverobarca/gradle-release-example)
 
 # Description
 
@@ -31,11 +31,11 @@ gradle clean release -Prelease.useAutomaticVersion=true
 ```
 ## CI and CD
 
-Three jenkins files are distributed:
+We use Travis CI as automation server and Codecov for test coverage:
 
-- Jenkinsfile, to build, test and execute the sonar analysis when PR
-- JenkinsfileSnapshot, to upload the SNAPSHOT library to Nexus
-- JenkinsfileDeploy, to prepare and perform the release using gradle-release plugin automatically generating the changelog
+- On Pull Requests, to build, test and execute the sonar analysis
+- On Push to develop branch, to upload the SNAPSHOT library to Nexus
+- On Push to master branch, to prepare and perform the release using gradle-release plugin automatically generating the changelog
 
 # How to contribute
 
