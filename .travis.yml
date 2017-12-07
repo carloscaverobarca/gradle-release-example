@@ -5,7 +5,7 @@ sudo: false # faster builds
 script:
   - gradle check
   - gradle build
-  - if [ "$TRAVIS_BRANCH" != "master" && "$TRAVIS_BRANCH" != "release"]; gradle test; gradle sonarqube; fi gradle build
+  - if [ "$TRAVIS_BRANCH" != "master" && "$TRAVIS_BRANCH" != "release"]; gradle test; gradle sonarqube; fi
   - if [ "$TRAVIS_BRANCH" = "master" ]; then gradle uploadArchives; fi
   - if [ "$TRAVIS_BRANCH" = "release" ]; then gradle clean release -Prelease.useAutomaticVersion=true; gradle generateChangelog; ./push.sh; fi
 
