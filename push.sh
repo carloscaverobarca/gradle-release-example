@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Configure the user
+git config --global user.email "carlos.cavero@atos.net"
+git config --global user.name "Carlos Cavero"
+
 # Commit the CHANGELOG modifications and new versioning
 git commit -am 'Automatic release increment and changelog generation'
 
