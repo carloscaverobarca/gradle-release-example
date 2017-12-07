@@ -18,11 +18,8 @@
 buildscript {
  repositories {
   jcenter()
-  // mavenLocal()
-  //mavenCentral()
  }
  dependencies {
-  // classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
   classpath 'net.researchgate:gradle-release:2.6.0'
   classpath "se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.53"
  }
@@ -38,7 +35,6 @@ group 'example'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
-//apply plugin: 'com.bmuschko.nexus'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
@@ -79,42 +75,6 @@ artifacts {
     archives sourcesJar
 }
 
-/* modifyPom {
- project {
-  name 'gradle-release-example'
-  description 'Gradle release example for CI and CD including integration with sonar, versioning and changelog. This is used for the gradle webinars.'
-  url 'https://gitlab.atosresearch.eu/HeartMan/jsi-jdexi.git'
-  inceptionYear '2017'
-   scm {
-   url 'https://github.com/carloscaverobarca/gradle-release-example.git'
-   connection 'scm:git@github.com:carloscaverobarca/gradle-release-example.git'
-   developerConnection 'scm:git@github.com:carloscaverobarca/gradle-release-example.git'
-  }
-
-  licenses {
-   license {
-    name 'Apache 2.0'
-    url 'http://www.apache.org/licenses/LICENSE-2.0'
-    distribution 'repo'
-   }
-  }
-
-  developers {
-   developer {
-    id 'carloscaverobar'
-    name 'Carlos Cavero Barca'
-    email 'cavero.carlos@gmail.com'
-   }
-  }
- }
-} */
-
-/* extraArchive {
- sources = false
- tests = false
- javadoc = true
-} */
-
 release {
 	git {
 		requireBranch = ''
@@ -122,22 +82,18 @@ release {
 	}
 }
 
-/* nexus {
-     sign = false
-     repositoryUrl = 'https://nexus.atosresearch.eu/repository/maven-releases/'
-     snapshotRepositoryUrl = 'https://nexus.atosresearch.eu/repository/maven-snapshots/'
-} */
-
 uploadArchives {
     def nexusUser = hasProperty('nexusUsername') ? nexusUsername : System.getenv('nexusUsername')
     def nexusPassword = hasProperty('nexusPassword') ? nexusPassword : System.getenv('nexusPassword')
+    def nexusReleaseUrl = hasProperty('nexusReleaseUrl') ? nexusReleaseUrl : System.getenv('nexusReleaseUrl')
+    def nexusSnapshotUrl = hasProperty('nexusSnapshotUrl') ? nexusSnapshotUrl : System.getenv('nexusSnapshotUrl')
 
     repositories {
         mavenDeployer {
-            repository(url: 'https://nexus.atosresearch.eu/repository/maven-releases') {
+            repository(url: nexusReleaseUrl) {
                 authentication(userName: nexusUser, password: nexusPassword);
             }
-            snapshotRepository(url: 'https://nexus.atosresearch.eu/repository/maven-snapshots') {
+            snapshotRepository(url: nexusSnapshotUrl) {
                 authentication(userName: nexusUser, password: nexusPassword);
             }
         }
@@ -156,11 +112,11 @@ jacocoTestReport {
 build.dependsOn jacocoTestReport
 
 //
-// To generate the changelog
+// Task to generate the changelog
 //
 task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
  file = new File("CHANGELOG.md");
  settingsFile = file('changelog.json').getAbsolutePath();
- gitHubToken = System.properties['GITHUB_API_TOKEN'];
+ gitHubToken = hasProperty('GITHUB_API_TOKEN') ? GITHUB_API_TOKEN : System.getenv('GITHUB_API_TOKEN');
  templateContent = file('changelog.mustache').getText('UTF-8');
 }
