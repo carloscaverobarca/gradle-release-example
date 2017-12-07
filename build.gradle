@@ -1,0 +1,165 @@
+/**
+ * Copyright (C) 2017 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+buildscript {
+ repositories {
+  jcenter()
+  // mavenLocal()
+  //mavenCentral()
+ }
+ dependencies {
+  // classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+  classpath 'net.researchgate:gradle-release:2.6.0'
+  classpath "se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.53"
+ }
+}
+
+plugins {
+  id "jacoco"
+  id "org.sonarqube" version "2.4"
+}
+
+group 'example'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+//apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'net.researchgate.release'
+apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Gradle Release Example"
+        property "sonar.projectKey", "example"
+        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+        property "sonar.host.url", hasProperty('sonarHostUrl') ? sonarHostUrl : System.getenv('sonarHostUrl')
+        property "sonar.login", hasProperty('sonarLogin') ? sonarLogin : System.getenv('sonarLogin')
+        property "sonar.password", hasProperty('sonarPassword') ? sonarPassword : System.getenv('sonarPassword')
+    }
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+/* modifyPom {
+ project {
+  name 'gradle-release-example'
+  description 'Gradle release example for CI and CD including integration with sonar, versioning and changelog. This is used for the gradle webinars.'
+  url 'https://gitlab.atosresearch.eu/HeartMan/jsi-jdexi.git'
+  inceptionYear '2017'
+   scm {
+   url 'https://github.com/carloscaverobarca/gradle-release-example.git'
+   connection 'scm:git@github.com:carloscaverobarca/gradle-release-example.git'
+   developerConnection 'scm:git@github.com:carloscaverobarca/gradle-release-example.git'
+  }
+
+  licenses {
+   license {
+    name 'Apache 2.0'
+    url 'http://www.apache.org/licenses/LICENSE-2.0'
+    distribution 'repo'
+   }
+  }
+
+  developers {
+   developer {
+    id 'carloscaverobar'
+    name 'Carlos Cavero Barca'
+    email 'cavero.carlos@gmail.com'
+   }
+  }
+ }
+} */
+
+/* extraArchive {
+ sources = false
+ tests = false
+ javadoc = true
+} */
+
+release {
+	git {
+		requireBranch = 'master'
+		pushToRemote = ''
+	}
+}
+
+/* nexus {
+     sign = false
+     repositoryUrl = 'https://nexus.atosresearch.eu/repository/maven-releases/'
+     snapshotRepositoryUrl = 'https://nexus.atosresearch.eu/repository/maven-snapshots/'
+} */
+
+uploadArchives {
+    def nexusUser = hasProperty('nexusUsername') ? nexusUsername : System.getenv('nexusUsername')
+    def nexusPassword = hasProperty('nexusPassword') ? nexusPassword : System.getenv('nexusPassword')
+
+    repositories {
+        mavenDeployer {
+            repository(url: 'https://nexus.atosresearch.eu/repository/maven-releases') {
+                authentication(userName: nexusUser, password: nexusPassword);
+            }
+            snapshotRepository(url: 'https://nexus.atosresearch.eu/repository/maven-snapshots') {
+                authentication(userName: nexusUser, password: nexusPassword);
+            }
+        }
+    }
+}
+
+afterReleaseBuild.dependsOn uploadArchives
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+//
+// To generate the changelog
+//
+task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+ file = new File("CHANGELOG.md");
+ settingsFile = file('changelog.json').getAbsolutePath();
+ templateContent = file('changelog.mustache').getText('UTF-8');
+}

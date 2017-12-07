@@ -1,0 +1,14 @@
+language: java
+
+sudo: false # faster builds
+
+script:
+  - gradle check
+  - gradle build
+  - gradle test 
+  - gradle sonarqube
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then gradle uploadArchives; fi
+  - if [ "$TRAVIS_BRANCH" = "release" ]; then gradle clean release -Prelease.useAutomaticVersion=true; gradle generateChangelog; ./push.sh; fi
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)

@@ -1,0 +1,28 @@
+# Gradle release example
+
+Automatic generation of gradle release example changelog.
+
+{{#tags}}
+## {{name}}
+ {{#issues}}
+  {{#hasIssue}}
+
+#### GitLab {{issue}} {{title}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+  {{/hasIssue}}
+  {{^hasIssue}}
+#### GitLab
+  {{/hasIssue}}
+
+  {{#commits}}
+**{{{messageTitle}}}**
+
+{{#messageBodyItems}}
+ * {{.}} 
+{{/messageBodyItems}}
+
+[{{hash}}](https://github.com/carloscaverobarca/gradle-release-example/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+  {{/commits}}
+
+ {{/issues}}
+{{/tags}}
