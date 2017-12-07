@@ -9,8 +9,7 @@ git remote rm origin
 git remote add origin https://carloscaverobarca:${GITHUB_API_TOKEN}@github.com/carloscaverobarca/gradle-release-example.git > /dev/null 2>&1
 
 # Commit the CHANGELOG modifications and new versioning
-git add -f .
-git commit -m 'Automatic release increment and changelog generation. Travis build $TRAVIS_BUILD_NUMBER pushed [skip ci]'
+git commit -am 'Automatic release increment and changelog generation. Travis build $TRAVIS_BUILD_NUMBER pushed [skip ci]'
 
 # Push the modifications into develop
 git push origin HEAD:master
