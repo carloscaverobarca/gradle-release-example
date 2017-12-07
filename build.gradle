@@ -117,7 +117,7 @@ artifacts {
 
 release {
 	git {
-		requireBranch = 'master'
+		requireBranch = ''
 		pushToRemote = ''
 	}
 }
@@ -153,7 +153,7 @@ jacocoTestReport {
     }
 }
 
-check.dependsOn jacocoTestReport
+build.dependsOn jacocoTestReport
 
 //
 // To generate the changelog
@@ -161,5 +161,6 @@ check.dependsOn jacocoTestReport
 task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
  file = new File("CHANGELOG.md");
  settingsFile = file('changelog.json').getAbsolutePath();
+ gitHubToken = System.properties['GITHUB_API_TOKEN'];
  templateContent = file('changelog.mustache').getText('UTF-8');
 }
