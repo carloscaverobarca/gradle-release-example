@@ -3,10 +3,12 @@ language: java
 sudo: false # faster builds
 
 script:
-  - gradle check
   - gradle build
+  - gradle test
+  - gradle generateChangelog
+  - gradle sonarqube
   - if [ "$TRAVIS_BRANCH" = "develop" ]; then gradle uploadArchives; fi
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then gradle clean release -Prelease.useAutomaticVersion=true; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then gradle clean release -Prelease.useAutomaticVersion=true; gradle generateChangelog;	fi
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
