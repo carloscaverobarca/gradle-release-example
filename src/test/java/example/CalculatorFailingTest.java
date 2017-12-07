@@ -28,7 +28,8 @@ public class CalculatorFailingTest {
 
 	@Test
 	public void testAuthenticator() throws Exception {
-	    int result = Calculator.sum(3,5);
+		Calculator calculator = new Calculator();
+		int result = calculator.sum(3,5);
 	    assertFalse(result == 5);
 	}
 }

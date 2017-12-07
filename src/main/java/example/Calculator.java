@@ -21,7 +21,7 @@ package example;
  */
 
 public class Calculator {
-  public static int sum(int a, int b) {
+  public int sum(int a, int b) {
    return(a+b);
   }
 }

@@ -27,7 +27,8 @@ import org.junit.Test;
 public class CalculatorTest {
   @Test
   public void test() {
-    int result = Calculator.sum(3,5);
+	Calculator calculator = new Calculator();
+	int result = calculator.sum(3,5);
     assertTrue(result == 8);
 
   }
