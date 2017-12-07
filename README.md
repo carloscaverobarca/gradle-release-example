@@ -35,9 +35,9 @@ gradle clean release -Prelease.useAutomaticVersion=true
 
 We use Travis CI as automation server and Codecov for test coverage:
 
-- On Pull Requests, to build, test and execute the sonar analysis
-- On Push to develop branch, to upload the SNAPSHOT library to Nexus
-- On Push to master branch, to prepare and perform the release using gradle-release plugin automatically generating the changelog
+- On Push to any branch, to build the source code
+- On Pull Requests to master, to build, test and execute the sonar analysis and upload the SNAPSHOT library to Nexus
+- On Push to release branch (from master), to prepare and perform the release using gradle-release plugin automatically generating the changelog
 
 # How to contribute
 
