@@ -153,13 +153,13 @@ jacocoTestReport {
     }
 }
 
-// test.dependsOn jacocoTestReport
+check.dependsOn jacocoTestReport
 
 //
 // To generate the changelog
 //
 task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
  file = new File("CHANGELOG.md");
+ settingsFile = file('changelog.json').getAbsolutePath();
  templateContent = file('changelog.mustache').getText('UTF-8');
- settingsFile = file('changelog.json').getText('UTF-8');
 }
