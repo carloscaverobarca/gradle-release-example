@@ -3,7 +3,36 @@
 Automatic generation of gradle release example changelog.
 
 ## Next release
+
+#### GitHub #8 Change the remote to release because Travis does not find the master remote   *bug*  
+
+**Merge pull request #8 from carloscaverobarca/bugfix-7-travisCInotFindRemote**
+
+ * Change the remote to release because Travis does not find the master remote 
+
+[424aa3fcdfbcd68](https://github.com/carloscaverobarca/gradle-release-example/commit/424aa3fcdfbcd68) Carlos Cavero *2017-12-08 00:13:41*
+
+
 #### GitHub
+
+**Merge branch 'master' into bugfix-7-travisCInotFindRemote**
+
+
+[c13d3ca23d1d112](https://github.com/carloscaverobarca/gradle-release-example/commit/c13d3ca23d1d112) Carlos Cavero *2017-12-08 00:11:35*
+
+**Change the remote to release because Travis does not find the master remote**
+
+
+[8b3a5864570635e](https://github.com/carloscaverobarca/gradle-release-example/commit/8b3a5864570635e) Carlos Cavero *2017-12-08 00:03:23*
+
+
+## 0.0.2
+#### GitHub
+
+**Generate the changelog using master**
+
+
+[5719785c918c6e6](https://github.com/carloscaverobarca/gradle-release-example/commit/5719785c918c6e6) Carlos Cavero *2017-12-07 20:41:57*
 
 **Automatic release increment and changelog generation. Travis build $TRAVIS_BUILD_NUMBER pushed [skip ci]**
 
