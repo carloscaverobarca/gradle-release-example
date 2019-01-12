@@ -77,7 +77,7 @@ artifacts {
 
 release {
 	git {
-		requireBranch = ''
+		requireBranch = 'release'
 		pushToRemote = ''
 	}
 }
