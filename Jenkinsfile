@@ -56,6 +56,8 @@ node("docker-slave") {
                 if (env.BRANCH_NAME == "release") {
     			    stage('Release') {
     				    // Run the gradle release
+						sh 'git config --global user.email "carlos.cavero@atos.net"'
+						sh 'git config --global user.name "Carlos Cavero"'
     				    sh "gradle clean release -Prelease.useAutomaticVersion=true"
     			    }
 
