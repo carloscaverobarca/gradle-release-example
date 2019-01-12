@@ -53,11 +53,10 @@ node("docker-slave") {
     			    }
                 }
     			    
+		     withEnv(['GIT_COMMITTER_NAME=Carlos Cavero', 'GIT_COMMITTER_EMAIL=carlos.cavero@atos.net']) {
                 if (env.BRANCH_NAME == "release") {
     			    stage('Release') {
     				    // Run the gradle release
-						sh 'git config --global user.email "carlos.cavero@atos.net"'
-						sh 'git config --global user.name "Carlos Cavero"'
     				    sh "gradle clean release -Prelease.useAutomaticVersion=true"
     			    }
 
@@ -71,6 +70,7 @@ node("docker-slave") {
             			sh "chmod +x ./push.sh && ./push.sh"
             		}
     			}
+				}
             }
             
 		}
