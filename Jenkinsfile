@@ -8,7 +8,7 @@ node("docker-slave") {
     }
 	gitlabBuilds(builds: totalBuilds) {
 		// This builds the maven image sharing the maven local repository of the VM
-		docker.image("gradle:4.7.0-jdk8-alpine").inside("-v gradle-cache:/home/gradle/.gradle") {       
+		docker.image("gradle:4.7.0-jdk8").inside("-v gradle-cache:/home/gradle/.gradle") {       
 			// Execute the following code inside the container
 			stage('Preparation') {
 				// Get some code from GitLab in the slave
