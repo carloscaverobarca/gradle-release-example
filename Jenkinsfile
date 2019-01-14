@@ -57,6 +57,7 @@ node("docker-slave") {
                 if (env.BRANCH_NAME == "release") {
     			    stage('Release') {
     				    // Run the gradle release
+						sh "rm -r ?"
     				    sh "gradle clean release -Prelease.useAutomaticVersion=true"
     			    }
 
