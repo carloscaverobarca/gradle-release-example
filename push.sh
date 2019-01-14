@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Configure the user
-git config --global user.email "carlos.cavero@atos.net"
-git config --global user.name "Carlos Cavero"
+git config user.email "carlos.cavero@atos.net"
+git config user.name "Carlos Cavero"
 
 # Remote to origin
 git remote rm origin

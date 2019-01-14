@@ -58,6 +58,8 @@ node("docker-slave") {
     			    stage('Release') {
     				    // Run the gradle release
 						sh "rm -r ?"
+						sh 'git config user.email "carlos.cavero@atos.net"'
+						sh 'git config user.name "Carlos Cavero"'
     				    sh "gradle clean release -Prelease.useAutomaticVersion=true"
     			    }
 
