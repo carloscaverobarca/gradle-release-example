@@ -4,6 +4,70 @@ Automatic generation of gradle release example changelog.
 
 ## Next release
 
+#### GitHub #9 Feature add jenkinsfile 
+
+**Merge pull request #9 from carloscaverobarca/feature-addJenkinsfile**
+
+ * Feature add jenkinsfile 
+
+[b6aaaae1f13399c](https://github.com/carloscaverobarca/gradle-release-example/commit/b6aaaae1f13399c) Carlos Cavero *2019-01-11 23:39:45*
+
+
+#### GitHub
+
+**Configure the user name and email locally in the repository**
+
+
+[8194710250ae541](https://github.com/carloscaverobarca/gradle-release-example/commit/8194710250ae541) Carlos Cavero *2019-01-14 16:47:31*
+
+**Remove the "?" folder**
+
+
+[df88be89d6a6e99](https://github.com/carloscaverobarca/gradle-release-example/commit/df88be89d6a6e99) Carlos Cavero *2019-01-14 16:27:47*
+
+**Remove require branch**
+
+
+[f0af5391ceb5a27](https://github.com/carloscaverobarca/gradle-release-example/commit/f0af5391ceb5a27) Carlos Cavero *2019-01-14 16:00:42*
+
+**Configure require branch to release**
+
+
+[ecd756372484cb7](https://github.com/carloscaverobarca/gradle-release-example/commit/ecd756372484cb7) Carlos Cavero *2019-01-12 01:47:39*
+
+**Include environment variables for git user name and email**
+
+
+[c582205e8806798](https://github.com/carloscaverobarca/gradle-release-example/commit/c582205e8806798) Carlos Cavero *2019-01-12 01:16:50*
+
+**Add to git configuration user name and email**
+
+
+[e7c5a9dbd27a0e4](https://github.com/carloscaverobarca/gradle-release-example/commit/e7c5a9dbd27a0e4) Carlos Cavero *2019-01-12 00:58:57*
+
+**Use jdk8 docker image to use git**
+
+
+[7f1c1c8fde50edc](https://github.com/carloscaverobarca/gradle-release-example/commit/7f1c1c8fde50edc) Carlos Cavero *2019-01-12 00:45:11*
+
+**Merge branch 'master' of github.com:carloscaverobarca/gradle-release-example**
+
+
+[9073de41217dc3b](https://github.com/carloscaverobarca/gradle-release-example/commit/9073de41217dc3b) Carlos Cavero *2019-01-11 23:33:51*
+
+**Add Jenkinsfile example**
+
+
+[855e128db803eff](https://github.com/carloscaverobarca/gradle-release-example/commit/855e128db803eff) Carlos Cavero *2019-01-11 23:32:11*
+
+**Automatic release increment and changelog generation. Travis build $TRAVIS_BUILD_NUMBER pushed [skip ci]**
+
+
+[4498e95d6e333fc](https://github.com/carloscaverobarca/gradle-release-example/commit/4498e95d6e333fc) Carlos Cavero *2017-12-08 00:17:52*
+
+
+## 0.0.3
+
 #### GitHub #8 Change the remote to release because Travis does not find the master remote   *bug*  
 
 **Merge pull request #8 from carloscaverobarca/bugfix-7-travisCInotFindRemote**
